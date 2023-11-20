@@ -1,33 +1,36 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import  { useState } from 'react';
+import React, {useEffect} from 'react';
+import { View, StyleSheet } from 'react-native';
+import BootUp from '../components/bootUp'; // Ensure correct path
 
-const Splash = ({navigation}) => {
+const Splash = ({ navigation }) => {
 
-  const handleSplash = () => {
-    navigation.navigate('Login')
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Login');
+    }, 1500); // 2000 milliseconds = 2 seconds
 
+    return () => clearTimeout(timer); // Clear the timer on component unmount
+  }, [navigation]); // Dependency array to ensure effect is run once
 
 
   return (
-    <View style = {styles.container}>
-      <Text>Splash Screen</Text>
-      <TouchableOpacity style = {styles.container} onPress={handleSplash}>
-        <Text>Login</Text>
-      </TouchableOpacity>
+    <View style={styles.safeArea}>
+      <View style={styles.container}>
+          <BootUp />
+      </View>
     </View>
   );
 };
 
-export default Splash;
-
-
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 100,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'transparent', // Ensure no default background color is applied
   },
-})
+  container: {
+    flex: 1, // Ensure it fills the screen
+    backgroundColor: 'transparent', // Ensure no default background color is applied
+  },
+});
+
+export default Splash;

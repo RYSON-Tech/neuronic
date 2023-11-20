@@ -1,33 +1,29 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import  { useState } from 'react';
+import React, {useEffect} from 'react';
+import { View, StyleSheet } from 'react-native';
+import LoginForm from '../components/loginForm'; // Ensure correct path
 
-const Login = ({navigation}) => {
-
-  const handleSplash = () => {
-    navigation.navigate('Login')
-  }
+const Login = ({ navigation }) => {
 
 
 
   return (
-    <View style = {styles.container}>
-      <Text>Login Screen</Text>
-      <TouchableOpacity style = {styles.container} onPress={handleSplash}>
-        <Text>Home</Text>
-      </TouchableOpacity>
+    <View style={styles.safeArea}>
+      <View style={styles.container}>
+          <LoginForm navigation={navigation} />
+      </View>
     </View>
   );
 };
 
-export default Login;
-
-
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 100,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'transparent', // Ensure no default background color is applied
   },
-})
+  container: {
+    flex: 1, // Ensure it fills the screen
+    backgroundColor: 'transparent', // Ensure no default background color is applied
+  },
+});
+
+export default Login;
